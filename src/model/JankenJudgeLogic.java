@@ -1,25 +1,30 @@
 package model;
 
 public class JankenJudgeLogic {
-	public void execute(Janken janken) {
+	
+	public String battle(int myHand, int cpuHand) {
 
-		int hand = janken.getHand();
-
-		double ransu = Math.random();
-		int CPUhand = (int) (ransu * 3);
+		
 		String judge = null;
 
-		if ((hand == 0 && CPUhand == 0) || (hand == 1 && CPUhand == 1) || (hand == 2 && CPUhand == 2)) {
-			judge = "あいこ";
-		} else if ((hand == 0 && CPUhand == 1) || (hand == 1 && CPUhand == 2) || (hand == 2 && CPUhand == 0)) {
+		if (isWin(myHand, cpuHand)) {
 			judge = "勝ち";
-		} else if ((hand == 0 && CPUhand == 2) || (hand == 1 && CPUhand == 0) || (hand == 2 && CPUhand == 1)) {
+		} else if (isLose(myHand, cpuHand)) {
 			judge = "負け";
+		} else {
+			judge = "あいこ";
 		}
+		
+		return judge;
+		
+	}
 
-		janken.setResult(judge);
-		janken.setCpuHand(CPUhand);
+	private boolean isLose(int myHand, int cpuHand) {
+		return (myHand == 0 && cpuHand == 2) || (myHand == 1 && cpuHand == 0) || (myHand == 2 && cpuHand == 1);
+	}
 
+	private boolean isWin(int myHand, int cpuHand) {
+		return (myHand == 0 && cpuHand == 1) || (myHand == 1 && cpuHand == 2) || (myHand == 2 && cpuHand == 0);
 	}
 
 }

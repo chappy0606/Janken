@@ -19,7 +19,6 @@ public class JankenController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// フォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Janken.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -27,17 +26,22 @@ public class JankenController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String hand = request.getParameter("hand");
-		int hand2 = Integer.parseInt(hand);
-		Janken janken = new Janken();
-		janken.setHand(hand2);
+		int myHand = Integer.parseInt(request.getParameter("hand"));
+		int cpuHand = getCpuHand();
+
+		Janken janken = new Janken(myHand, cpuHand);
 
 		JankenJudgeLogic jankenJudgeLogic = new JankenJudgeLogic();
-		jankenJudgeLogic.execute(janken);
+		janken.setResult(jankenJudgeLogic.battle(myHand, cpuHand));
 
 		request.setAttribute("janken", janken);
-
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/JankenJudgeResult.jsp");
 		dispatcher.forward(request, response);
+	}
+
+	private int getCpuHand() {
+		double ransu = Math.random();
+		int cpuHand = (int) (ransu * 3);
+		return cpuHand;
 	}
 }
