@@ -23,5 +23,6 @@ User loginUser = (User) session.getAttribute("loginUser");
 <BR>
 <input type="submit" value="結果">
 </form>
+<font color="red">${ error }</font>
 </body>
 </html>

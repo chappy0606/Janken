@@ -24,15 +24,14 @@ public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request
-				.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		String name = request.getParameter("name");
@@ -49,14 +48,14 @@ public class LoginController extends HttpServlet {
 
 			User user = new User(autoIncrementId, name, passCode);
 
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(true);
+			session.setMaxInactiveInterval(600);
 			session.setAttribute("loginUser", user);
 
 			response.sendRedirect("/Kadai/JankenController");
 		} else {
 			request.setAttribute("error", "ユーザー名かパスワードが間違っています");
-			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(
-					request, response);
+			request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 		}
 	}
 }

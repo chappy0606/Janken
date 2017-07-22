@@ -23,10 +23,10 @@ public class CallDAO {
 	public boolean callUserExist(String name, String passCode) {
 		UserDAO userDAO = new UserDAO();
 		return userDAO.exist(name, passCode);
-		
+
 	}
-	
-	public int callUserFindAll(String name){
+
+	public int callUserFindAll(String name) {
 		UserDAO userDAO = new UserDAO();
 		return userDAO.findBy(name);
 	}

@@ -12,16 +12,14 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet("/LogoutController")
 public class LogoutController extends HttpServlet {
-  private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  protected void doGet(HttpServletRequest request,
-      HttpServletResponse response)
-      throws ServletException, IOException {
-    HttpSession session = request.getSession();
-    session.invalidate();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.invalidate();
 
-    RequestDispatcher dispatcher =
-        request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-    dispatcher.forward(request, response);
-  }
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		dispatcher.forward(request, response);
+	}
 }
