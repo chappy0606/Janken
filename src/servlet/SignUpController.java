@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.UserDAO;
+import model.CallDAO;
 import model.PasswordUtil;
-import model.User;
 
 @WebServlet("/SignUpController")
 public class SignUpController extends HttpServlet {
@@ -30,18 +29,21 @@ public class SignUpController extends HttpServlet {
 		String name = request.getParameter("name");
 		String pass = request.getParameter("pass");
 
-		PasswordUtil password = new PasswordUtil();
-		String passCode = password.toPassCode(pass);
-
-		User user = new User(name, passCode);
-
-		UserDAO userDAO = new UserDAO();
-
-		if (userDAO.insert(name, passCode)) {
-			request.getRequestDispatcher("/WEB-INF/jsp/registerDone.jsp").forward(request, response);
-		} else {
-			request.setAttribute("error", "既にニックネームが使われています");
+		if (name == null || name.isEmpty() || pass == null || pass.isEmpty()) {
+			request.setAttribute("isNull", "未入力の項目があります");
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+		} else {
+			PasswordUtil password = new PasswordUtil();
+			String passCode = password.toPassCode(pass);
+
+			CallDAO callDAO = new CallDAO();
+
+			if (callDAO.callUserInsert(name, passCode)) {
+				request.getRequestDispatcher("/WEB-INF/jsp/registerDone.jsp").forward(request, response);
+			} else {
+				request.setAttribute("error", "既にニックネームが使われています");
+				request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+			}
 		}
 	}
 }

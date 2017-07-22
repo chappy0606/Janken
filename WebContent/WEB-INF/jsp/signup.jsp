@@ -13,6 +13,7 @@
 <input type="submit" value="登録">
 <p><a href="/Kadai/LoginController">戻る</a></p>
 </form>
+<font color="red">${ isNull }</font>
 <font color="red">${ error }</font>
 </body>
 </html>

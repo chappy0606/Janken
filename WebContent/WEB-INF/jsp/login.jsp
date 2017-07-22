@@ -11,7 +11,7 @@
 ユーザー名：<input type="text" name="name"><br>
 パスワード：<input type="password" name="pass"><br>
 <input type="submit" value="ログイン">
-<a href="/Kadai/SignUpController?action=input">アカウントをお持ちでない方はこちら</a>
+<a href="/Kadai/SignUpController">アカウントをお持ちでない方はこちら</a>
 </form>
 <font color="red">${ error }</font>
 </body>

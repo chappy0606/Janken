@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="model.Janken"%>
+<%
+int[] counter = (int[]) session.getAttribute("counter");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -38,8 +41,10 @@
 		</c:otherwise>
 	</c:choose>
 	<br> 勝敗 : ${janken.result}
+	<br>${counter[0]}勝${counter[1]}負${counter[2]}引き分け 
 	<p>
-		<a href="#" onClick="history.back(); return false;">戻る</a>
+		<p><a href="/Kadai/JankenController">戻る</a></p>
+		<p><a href="/Kadai/LogoutController">ログアウト</a></p>
 	</p>
 </body>
 </html>
